@@ -17,13 +17,13 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	float G = 0.006;
 
-	UPROPERTY(EditAnywhere,BlueprintReadWrite)
-	APlanet* P1;
-	UPROPERTY(EditAnywhere,BlueprintReadWrite)
-	APlanet* P2;
-
 	// UPROPERTY(EditAnywhere,BlueprintReadWrite)
-	// TArray<APlanet*> planets;
+	// APlanet* P1;
+	// UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	// APlanet* P2;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	TArray<APlanet*> planets;
 
 protected:
 	virtual void BeginPlay() override;
@@ -31,6 +31,7 @@ protected:
 private:
 	float CalcForce(float mass1,float mass2,float distance);
 	void InitializeVelocity();
-	FVector accel;
+	void ApplyGravityBetween(APlanet* P1, APlanet* P2, float DeltaTime);
+	//FVector accel;
 	
 };

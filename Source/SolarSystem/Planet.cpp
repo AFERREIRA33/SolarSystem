@@ -28,7 +28,7 @@ void APlanet::Tick(float DeltaTime)
 
 float APlanet::GetPlanetRadius()
 {
-	return mesh->Bounds.SphereRadius *100;
+	return mesh->Bounds.SphereRadius;
 }
 
 float APlanet::PlanetMass(float radius)
