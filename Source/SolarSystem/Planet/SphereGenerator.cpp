@@ -10,8 +10,6 @@ ASphereGenerator::ASphereGenerator()
 void ASphereGenerator::BeginPlay()
 {
     Super::BeginPlay();
-    UE_LOG(LogTemp, Warning, TEXT("SphereGenerator BeginPlay"));
-    StartGeneration();
 }
 
 void ASphereGenerator::GenerateIcosphere()
@@ -245,5 +243,31 @@ FVector2D ASphereGenerator::GetUV(FVector Position, FVector Normal) const
     float U = 0.0f;
 
     return FVector2D(U, abs(V));
+}
+
+float ASphereGenerator::GetPlanetRadius()
+{
+	return Radius;
+}
+
+float ASphereGenerator::PlanetMass(float radius)
+{
+	return gravity * FMath::Square(radius) / G;
+}
+
+void ASphereGenerator::InitializePlanet(float NewScale, float NewGravity, TObjectPtr<UMaterialInterface> NewMaterial)
+{
+    Radius *= NewScale;
+    Material = NewMaterial;
+    StartGeneration();
+	gravity = NewGravity;
+	
+	RecalculateMass();
+}
+
+void ASphereGenerator::RecalculateMass()
+{
+    
+    Mass = PlanetMass(GetPlanetRadius());
 }
 

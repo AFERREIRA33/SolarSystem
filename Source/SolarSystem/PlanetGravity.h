@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Planet.h"
+#include "Planet/SphereGenerator.h"
 #include "PlanetGravity.generated.h"
 
 UCLASS()
@@ -24,8 +25,11 @@ public:
 	UPROPERTY()
 	float Mass;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Chunk")
+	TObjectPtr<UMaterialInterface> Material;
+	
 	UPROPERTY()
-	TArray<APlanet*> Planets;
+	TArray<ASphereGenerator*> Planets;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Planet Spawning")
 	int32 NumberOfPlanets = 8;
@@ -52,7 +56,7 @@ public:
 	float MaxPlanetGravity = 30.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Planet Spawning")
-	TSubclassOf<APlanet> PlanetClass;
+	TSubclassOf<ASphereGenerator> PlanetClass;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Orbit Visualization")
 	bool bShowOrbits = true;
@@ -64,6 +68,7 @@ public:
 	float OrbitLineThickness = 5.0f;
 	
 	float GetSunRadius();
+
 
 protected:
 	virtual void BeginPlay() override;
@@ -81,6 +86,6 @@ private:
 	UPROPERTY()
 	FVector SunLocation = GetActorLocation();
 
-	TMap<APlanet*, TArray<FVector>> PreCalculatedOrbits;
+	TMap<AGenerateSurface*, TArray<FVector>> PreCalculatedOrbits;
 	
 };

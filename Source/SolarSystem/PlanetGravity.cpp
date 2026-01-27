@@ -59,7 +59,7 @@ void APlanetGravity::InitializeVelocity()
 	SunLocation = GetActorLocation();
 
 	// Set initial velocity for each planet for circular orbit
-	for (APlanet* Planet : Planets)
+	for (ASphereGenerator* Planet : Planets)
 	{
 		if (!Planet) continue;
 
@@ -68,10 +68,10 @@ void APlanetGravity::InitializeVelocity()
 
 		if (dist < KINDA_SMALL_NUMBER) continue;
 
-		float F = CalcForce(Planet->mass, Mass, dist);
+		float F = CalcForce(Planet->Mass, Mass, dist);
 		FVector fdir = direction.GetSafeNormal();
 
-		FVector accelInit = (F / Planet->mass) * fdir;
+		FVector accelInit = (F / Planet->Mass) * fdir;
 		
 		FVector tangent = FVector::CrossProduct(fdir, FVector::UpVector).GetSafeNormal();
 		float orbitalSpeed = FMath::Sqrt(accelInit.Size() * dist);
@@ -87,7 +87,7 @@ void APlanetGravity::Tick(float DeltaTime)
 	SunLocation = GetActorLocation();
 
 	// For each planet, calculate gravitational acceleration from sun and other planets
-	for (APlanet* Planet : Planets)
+	for (ASphereGenerator* Planet : Planets)
 	{
 		if (!Planet) continue;
 
@@ -99,13 +99,13 @@ void APlanetGravity::Tick(float DeltaTime)
 
 		if (distToSun > KINDA_SMALL_NUMBER)
 		{
-			float F = CalcForce(Planet->mass, Mass, distToSun);
+			float F = CalcForce(Planet->Mass, Mass, distToSun);
 			FVector fdir = directionToSun.GetSafeNormal();
-			totalAccel += (F / Planet->mass) * fdir;
+			totalAccel += (F / Planet->Mass) * fdir;
 		}
 
 		// Calculate attraction from other planets
-		for (APlanet* OtherPlanet : Planets)
+		for (ASphereGenerator* OtherPlanet : Planets)
 		{
 			if (!OtherPlanet || OtherPlanet == Planet) continue;
 
@@ -118,10 +118,10 @@ void APlanetGravity::Tick(float DeltaTime)
 			float minDist = (Planet->GetPlanetRadius() + OtherPlanet->GetPlanetRadius()) * 2.0f;
 			float effectiveDist = FMath::Max(dist, minDist);
 
-			float F = CalcForce(Planet->mass, OtherPlanet->mass, effectiveDist);
+			float F = CalcForce(Planet->Mass, OtherPlanet->Mass, effectiveDist);
 			FVector fdir = direction.GetSafeNormal();
 
-			totalAccel += (F / Planet->mass) * fdir;
+			totalAccel += (F / Planet->Mass) * fdir;
 		}
 
 		// Update velocity with global acceleration
@@ -129,7 +129,7 @@ void APlanetGravity::Tick(float DeltaTime)
 	}
 
 	// Update planet positions
-	for (APlanet* Planet : Planets)
+	for (ASphereGenerator* Planet : Planets)
 	{
 		if (!Planet) continue;
 		Planet->SetActorLocation(Planet->GetActorLocation() + Planet->velocity * DeltaTime);
@@ -143,7 +143,7 @@ void APlanetGravity::CalculateAndDrawOrbits()
 	SunLocation = GetActorLocation();
 
 	// For each planet, simulate orbit path and draw it
-	for (APlanet* Planet : Planets)
+	for (ASphereGenerator* Planet : Planets)
 	{
 		if (!Planet) continue;
 
@@ -172,9 +172,9 @@ void APlanetGravity::CalculateAndDrawOrbits()
 
 			if (dist < KINDA_SMALL_NUMBER) break;
 
-			float F = CalcForce(Planet->mass, Mass, dist);
+			float F = CalcForce(Planet->Mass, Mass, dist);
 			FVector fdir = direction.GetSafeNormal();
-			FVector accel = (F / Planet->mass) * fdir;
+			FVector accel = (F / Planet->Mass) * fdir;
 			
 			simVel = simVel + accel * simDeltaTime;
 			simPos = simPos + simVel * simDeltaTime;
@@ -265,13 +265,13 @@ void APlanetGravity::SpawnPlanets()
 		SpawnParams.Owner = this;
 		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
-		APlanet* NewPlanet = GetWorld()->SpawnActor<APlanet>(PlanetClass, SpawnLocation, FRotator::ZeroRotator, SpawnParams);
+		ASphereGenerator* NewPlanet = GetWorld()->SpawnActor<ASphereGenerator>(PlanetClass, SpawnLocation, FRotator::ZeroRotator, SpawnParams);
 
 		if (NewPlanet)
 		{
 			// Initialise with random scale and gravity
-			NewPlanet->InitializePlanet(RandomScale, RandomGravity);
-
+			NewPlanet->InitializePlanet(RandomScale, RandomGravity, Material);
+			
 			// Add to array
 			Planets.Add(NewPlanet);
 			SpawnedPositions.Add(SpawnLocation);

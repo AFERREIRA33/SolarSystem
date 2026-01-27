@@ -14,31 +14,49 @@ class SOLARSYSTEM_API ASphereGenerator : public AGenerateSurface
 
 public:
     ASphereGenerator();
-
+    
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Planet")
-    float Radius = 1000.0f;
+    float Radius = 100.0f;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Planet", meta = (ClampMin = "0", ClampMax = "6"))
-    int32 Subdivisions = 3;
+    int32 Subdivisions = 6;
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Planet")
     UProceduralMeshComponent* MeshComponent;
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Planet")
-    float HeightAmplitude = 100.0f;
+    float HeightAmplitude = 500.0f;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Planet")
-    float NoiseScale = 1.0f;
+    float NoiseScale = 0.5f;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Planet")
+    float gravity = 0.1f;
+    
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Planet")
+    float G = 0.1f;
+
+    UPROPERTY(EditAnywhere,BlueprintReadWrite)
+    FVector velocity = FVector::ZeroVector;
+
+    UPROPERTY()
+    float Mass;
+    
     TArray<FVector> Vertices;
     TArray<int32> Triangles;
     TMap<int64, int32> MiddlePointCache;
-
-
+    
+    
     virtual ProceduralGenerationType SetGenerationType() override;
     void Setup() override;
     virtual void Generate2DHeightMap(FVector Position) override;
     TArray<float> HeightMap;
+    
+    
+    float GetPlanetRadius();
+    float PlanetMass(float radius);
+    void InitializePlanet(float NewScale, float NewGravity, TObjectPtr<UMaterialInterface>);
+    void RecalculateMass();
     
 protected:
     virtual void BeginPlay() override;
