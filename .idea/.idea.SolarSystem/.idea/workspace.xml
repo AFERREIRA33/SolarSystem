@@ -5,6 +5,7 @@
     <projectFile profileName="EpicGames.AspNet">../../../../../Program Files (x86)/UE_5.6/Engine/Source/Programs/Shared/EpicGames.AspNet/EpicGames.AspNet.csproj</projectFile>
     <projectFile kind="Docker">../../../../../Program Files (x86)/UE_5.6/Engine/Source/Programs/Shared/EpicGames.Perforce.Fixture/EpicGames.Perforce.Fixture.csproj</projectFile>
     <projectFile>../../../../../Program Files (x86)/UE_5.6/Engine/Source/Programs/UnrealBuildTool/UnrealBuildTool.csproj</projectFile>
+    <projectFile kind="Docker">../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/Shared/EpicGames.Perforce.Fixture/EpicGames.Perforce.Fixture.csproj</projectFile>
     <projectFile>Intermediate/ProjectFiles/SolarSystem.vcxproj</projectFile>
     <projectFile>Intermediate/ProjectFiles/UE5.vcxproj</projectFile>
   </component>
@@ -14,161 +15,8 @@
   <component name="ChangeListManager">
     <list default="true" id="1b1d932a-fada-4b8e-b7f6-ad02479bc2ca" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SolarSystem/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SolarSystem/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/BP_PlanetGravity.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BP_PlanetGravity.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Material/Mat_Sun.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TestPlanet/SphereGenerator.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TestPlanet/TestPlanetMap.umap" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/TestPlanet/TestPlanetMap_HLOD0_Instancing.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/0/8F/UFDAV3OZI3N3M92CGGO9X7.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/0/LS/OJ6BDQ4DTILCY7DVLT8U0W.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/0/VT/CGAEZ4XD0GN2R3OS1DCK1U.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/1/6R/LVP498I9O1Y5IUF58Y6PD9.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/1/8F/G3H1XMIUC49HR05O7YUM7O.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/1/C5/WT0XRJROEZJJZJA4RLRL6G.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/1/CW/HUQWVVU6B4J9H3E4PBY5KO.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/1/DF/2EGCLJLAXI0A01HIKP9EUI.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/1/FJ/09PKC823M10H88S20TLBEK.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/2/35/71JQA09ZPCQC8FUYZJ8W83.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/2/42/I1ZU0EJB41AMTLEMGHYTQK.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/2/CF/T04TC1JAB8JQIVHHY4R9JO.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/2/EZ/P0TQXFFQUAZUFL76EAPP3E.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/2/IC/I4KIDMM3HBX6RISKTKGDUZ.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/2/KM/5V5QRDOLZLWEZ1IKV0DRGW.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/2/UZ/9RI6JSK3O0VO89FMPPU4MS.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/3/E8/RDMOQQ8CWCNLWFESL6O5C0.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/3/GL/3W05VOD20SPXPJ1IL491QB.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/3/S4/SD049SISLNTFGB3T8AWSU2.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/3/TD/U13FAW9525QH5B6T6EKW0J.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/4/17/2986PPPK3QP9XHT5XKUTCU.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/4/MD/941FZY50LUZT8T9YR4X6Y7.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/4/V3/NAI0ZOXKPWWXN1AWZ3CNOS.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/5/26/U9B8RUK7586VA5GOMVLJXE.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/5/EK/7UF9FVUPRFHGASIDO8YHN6.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/5/FW/QN8BB3RWMKS7IQOPAY1S8L.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/5/OP/1D9QNNAQHTC3PKGLCO9L4V.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/5/R0/8E7XUY753C5OVCKE2PCWZ4.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/6/YF/2N4QYPOWC0A3IDGL8HDKAZ.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/7/A8/MSJM7NGBI4S4K29Y1Q79HU.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/7/FB/01379E3VA86SNUZWUS922X.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/7/HY/MN9CU29MZCVKN651XSLRIY.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/7/SD/VF812AG6HNIV7WBSWNZV9L.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/8/54/ANTK1S0FIN0Q4J91SYT1LI.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/8/7Y/I1H5N4RK8BP2SV3YKURM54.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/8/H3/3F3V0Y4LCTZW43R1FBJZ1F.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/8/PV/2O05KA4U0T3Z6MYPKAOUK6.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/8/TS/XFIT7K3GJNO5H11JUNU7AO.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/8/V6/3QE2RDR0AW6AMEFJ7YCJE7.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/9/57/9XHHCJMJIT7750MZFR4LHN.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/9/96/VZW6EEU33F857MKDA1FYJH.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/9/AK/1R67VJ33IZOLLOWYYUG51V.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/9/BP/HENX0EOU5AQZ655KR0R3GX.uasset" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/9/GM/NQT0N49GCGPNV8VZZ72M0O.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/9/GM/NQT0N49GCGPNV8VZZ72M0O.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/A/1A/D65KOY7S2O3HE6EIAEJHRT.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/A/FN/JMZJGMVCRVARVBFCDKBJD9.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/A/UL/CM18O5669UUSQKRJLBS6Z9.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/B/1G/XNUPZH1WWC40MEM25OIM53.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/B/3B/HWUST7RI32ORIP41DQB0AR.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/B/KW/R7LIBQDOJ6URG2I8KXRCSU.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/B/L7/MWHUAENLKTQCVSU56YM63T.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/B/P1/WUJB0BYYSVKXA0T4IGB92F.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/C/24/BULL4S0S1RX4YKH29EAS56.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/C/3W/IK2F6A7CA40GOO1JRQXY0J.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/C/4P/MX0GUCLLGCL3PRVNA7ARPV.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/C/RQ/NQBZCXB1FIQ6EREBMOJXMI.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/C/TR/IB3XKC9N3SKUE28X74YL9J.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/C/VY/96IX5OQRKMWXVYESJ4C0VA.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/C/XB/G7DTPAAZHB06OHGW2DH3AG.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/D/O7/N8CD0OYD0UU4XTMULBO6K2.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/E/35/ZV7YJ75LTWU1RBL2VM2DW2.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/E/DG/EHSBFNP9DZG447JH16GDDJ.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/E/F4/R493E1HSYTJH7TR2KT2Q67.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/E/QW/N04HXVP1ANS9AUWUJF3706.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/E/XJ/9WDMUUYS65AHL3UMISKJ1H.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/0/4A/5U1ICZK11Z1XRCGB8DOXG5.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/0/AG/7BNC1YGK43QZ7LI27J0Y3P.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/0/G2/QMYKPFO7DI6OJCOZJ24FM9.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/0/K0/ZILDGXQ42LVNM1B4Z0WJ48.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/0/LU/XML1L495D57P6TJ35SSD8N.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/0/Z6/X35K2TQAK6YDV6VRMBOLVX.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/1/3J/08S2TM39T52R4C9Z1KAH6M.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/1/9H/767BVFDVVOWBHQ4GN40VZ3.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/1/BS/TF9JWJ1ZX1N0VQ5GKYFFI2.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/1/DF/0XNLMFW8HBPUCAYEH9IZEV.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/1/LC/ONWJ0E34J4T5SGB84N741Y.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/1/W6/UEE6IMDPS4XI32QD6QPA86.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/1/WK/QH4LDXLE199ZNNCL8QHLEZ.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/2/8U/TY5J5IHO2RT4R4JZ1SUFWQ.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/2/ET/MF8TLSQLQ5HKRLU54WR7P4.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/2/GC/U5I2MBKCH1GQ7HHHU3FV1Y.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/2/RN/3O6LTXR36N1EE4IDFS1LC1.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/4/0X/7BY5S6473Q2BY2QC692UX3.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/4/85/6PYLNSLQCQSBSRXA2R0BCT.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/4/CR/WUPAW1H6NPZ439XBGE2RP3.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/4/QZ/R1X0Z7ROAMO639D844ZE5G.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/4/Y1/HXD1QUZ68LLKFAQDAADW00.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/5/0P/I48FECU0W86HZJS1S9S8TG.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/5/76/5OTXZ9GYN6C9OUO8ALMUG0.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/5/I7/W93OT87NR9JEFOYJ5QI0FM.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/5/IA/8BS9XMTQ9LUJI5LHH2NNJG.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/5/IS/1JRM6R4DWB5F6CZCB6DKAX.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/5/VY/PBF1ACE769Y1XIM85Z3GD6.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/5/XN/PNDKYCYZ0BCJHE6MTF4OWR.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/6/4A/EVDMCP8YV7Y9YD1H2RCB4M.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/6/4F/81RNC7QCI4XJXF2OAI9H8T.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/6/E0/SZSLVK47SZAIPZHYNTGGCP.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/6/OS/M5XHMTV2QINYFTPU4OU2HO.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/6/VR/RD30PT7G712QPJOESNAD1W.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/7/AO/DTCUVGAJOH2HNBJ4MD0OGU.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/7/CR/MHRYVDXZGOPP9M3UKAOFXU.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/7/DR/8GLC2Z56ICG7Q1MADC835C.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/7/PI/L8KVCC5UNHGQS94JOIVQU4.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/7/PK/JVNRWKRCG7R5CLWUIW2363.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/7/W0/Y55NPYV0N1BGX5T9PAEHMR.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/8/2X/FLMRDCQQDYMB9Z9RK79Z0D.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/8/B6/F8TAG8D585MJ234M5YYKTU.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/8/D7/PX25H7UTTZ6U7A3U7TOH1X.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/8/JZ/2UFAVO64896ESZFF8YJ1V5.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/8/NN/L3XBRIEYQARJDYM6GPQRAY.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/8/PY/AS0JBNMZYKA0JPCF95AEZ3.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/8/WZ/VVKK4CHK3CYNOLF6LRNJBT.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/9/80/WPFCH51GTTOSCH2M7ZDADM.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/9/D0/OJ0R8G8SO0H4VERX7OM0WW.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/9/G3/9GCYD8HHVMNR3FEBOHTF0X.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/9/GJ/C1F1CWSJ35XXM1EDKUF067.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/A/EV/QEO6WHG4M7V49IGE43GFL9.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/A/G4/BGMKLGN946C5068J2GMG41.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/A/YF/AXS5TZS8AAOU2TKUF7O031.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/B/DB/9I2CR7WBWQEAF4GYVEKVNS.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/B/EB/NH0MZOR7D4H7RRXH9IWFOY.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/B/F8/KB2JNFLJTU5PFNH2W3E7NZ.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/B/FQ/ULVF0X76BR0N7D26S39Y63.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/B/PH/ZRMRY8TZB01EQJKGX7YM6G.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/B/UJ/UPT0HPUOX4ME6OCW6C9I5D.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/C/L0/Z7FJMAMOTRLPTC07WIZ5WP.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/D/9H/30USE9Z4FZW9S8KJKMJ773.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/D/AD/FURZA3IC0J39DAGBMPIS7V.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/D/B9/4EOIGR0WPOVP4GNOWSXBIF.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/D/IA/XE65NEO6RP1X2FXPY2T8UJ.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/D/JO/SMKLGU0PULJB685UPFQDXA.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/D/QO/IKU9J6LC6T74ZRU69KNHT5.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/D/U9/9H9HPXUBJBY4FPSIMQVGA6.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/E/6K/JKNCF1THSH55AYXBV3EKA3.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/E/EX/2S05LQSANB9VKLGRPZGHPF.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/E/HA/OMO4IE02QOHFGLP6U99I67.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/E/L6/7VUHJJWXMP7MHNH6KEIRAI.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/E/OI/JPU48TVTV16C4XDAL7EQ7N.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/E/XL/XQJRY4V93E28KDVPZH7KJU.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/F/1A/DVSEE4284RYNKZ5CNJYYBJ.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalObjects__/TestPlanet/TestPlanetMap/2/F6/C6GWT2TWZOYP07VM8YDWAE.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalObjects__/TestPlanet/TestPlanetMap/5/1S/33ZB82QULCONS6KCLFA6W3.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalObjects__/TestPlanet/TestPlanetMap/A/5F/UJKED9GG8SWQD49X5JDA3G.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalObjects__/TestPlanet/TestPlanetMap/A/JV/P087E4IWL6QN1OM6VGCGIL.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalObjects__/TestPlanet/TestPlanetMap/B/6K/5VD18IXTEWHMDPE4SE9V64.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalObjects__/TestPlanet/TestPlanetMap/C/O8/MUXOL4VV223X7RHPLDUAIX.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/SolarSystem/Planet/SphereGenerator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SolarSystem/Planet/SphereGenerator.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/SolarSystem/Planet/SphereGenerator.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SolarSystem/Planet/SphereGenerator.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/SolarSystem/PlanetGravity.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SolarSystem/PlanetGravity.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/SolarSystem/PlanetGravity.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SolarSystem/PlanetGravity.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/B/TK/J65LRRZ0S8I5CAR45J9ZGZ.uasset" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,12 +30,12 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="cidr-memory-view://6" root0="FORCE_HIGHLIGHTING" />
+    <setting file="cidr-memory-view://0" root0="FORCE_HIGHLIGHTING" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 3
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="38qeURGwYPoqAnfzHcu5899TCN0" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -197,6 +45,7 @@
   "keyToString": {
     "C/C++ Project.SolarSystem.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -220,6 +69,18 @@
         <option name="TERMINAL_INTERACTION_BEHAVIOR" value="AUTO_DETECT" />
         <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/Intermediate/ProjectFiles/SolarSystem.vcxproj" />
       </configuration_1>
+      <configuration_2 setup="1">
+        <option name="CONFIGURATION" value="Win64_x64_Development_Editor" />
+        <option name="PLATFORM" value="x64" />
+        <option name="CURRENT_LAUNCH_PROFILE" value="Local" />
+        <option name="EXE_PATH" value="$(LocalDebuggerCommand)" />
+        <option name="PROGRAM_PARAMETERS" value="$(LocalDebuggerCommandArguments)" />
+        <option name="WORKING_DIRECTORY" value="$(LocalDebuggerWorkingDirectory)" />
+        <option name="PASS_PARENT_ENVS" value="1" />
+        <option name="USE_EXTERNAL_CONSOLE" value="0" />
+        <option name="TERMINAL_INTERACTION_BEHAVIOR" value="AUTO_DETECT" />
+        <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/Intermediate/ProjectFiles/SolarSystem.vcxproj" />
+      </configuration_2>
       <option name="DEFAULT_PROJECT_PATH" value="$PROJECT_DIR$/Intermediate/ProjectFiles/SolarSystem.vcxproj" />
       <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/Intermediate/ProjectFiles/SolarSystem.vcxproj" />
       <option name="AUTO_SELECT_PRIORITY" value="10010" />
@@ -286,6 +147,17 @@
         <option name="Build" />
       </method>
     </configuration>
+    <configuration name="EpicGames.Perforce.Fixture/Dockerfile (1)" type="docker-deploy" factoryName="dockerfile" server-name="Docker">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="containerName" value="epicgames.perforce.fixture" />
+          <option name="contextFolderPath" value="C:\Users\rober\Documents\Unreal Projects\SolarSystem" />
+          <option name="sourceFilePath" value="../../../../../Program Files/Epic Games/UE_5.6/Engine/Source/Programs/Shared/EpicGames.Perforce.Fixture/Dockerfile" />
+        </settings>
+      </deployment>
+      <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isSslEnabled="false" />
+      <method v="2" />
+    </configuration>
     <configuration name="EpicGames.Perforce.Fixture/Dockerfile" type="docker-deploy" factoryName="dockerfile" server-name="Docker">
       <deployment type="dockerfile">
         <settings>
@@ -298,7 +170,10 @@
       <method v="2" />
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
-      <deployment type="dockerfile" />
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
+      <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isSslEnabled="false" />
       <method v="2" />
     </configuration>
   </component>
@@ -311,6 +186,7 @@
       <option name="presentableId" value="Default" />
       <updated>1769531545051</updated>
       <workItem from="1769531548153" duration="5661000" />
+      <workItem from="1769537461728" duration="929000" />
     </task>
     <servers />
   </component>
