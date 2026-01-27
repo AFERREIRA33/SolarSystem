@@ -29,7 +29,6 @@ public:
 	float GetInterpolationOffset(const float V1, const float V2) const;
 	
 	FVector2D GetUV(FVector Position, FVector Normal) const;
-	FColor GetColor(FVector Position, FVector Normal) const;
 	FVector GetVoxelNormal(FVector vertex) const;
 
 	int HumidityPos = 1000000;

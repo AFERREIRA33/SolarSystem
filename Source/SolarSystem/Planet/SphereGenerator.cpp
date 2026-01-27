@@ -16,63 +16,110 @@ void ASphereGenerator::BeginPlay()
 
 void ASphereGenerator::GenerateIcosphere()
 {
-    
-    // Subdivide each face
+    Vertices.Empty();
+    Triangles.Empty();
+    TMap<int64, int32> Cache;
+
+    // 1. Initial 12 vertices (displaced by noise)
+    for (int32 i = 0; i < 12; i++)
+    {
+        Vertices.Add(GetNoisyPosition(IcoVertices[i]));
+    }
+
+    // 2. Subdivide the 20 initial faces
     for (int32 i = 0; i < 20; i++)
     {
-        SubdivideTriangle(IcoVertices[Faces[i][0]], IcoVertices[Faces[i][1]], 
-            IcoVertices[Faces[i][2]], Subdivisions);
+        SubdivideTriangle(Faces[i][0], Faces[i][1], Faces[i][2], Subdivisions, Cache);
     }
 
-    // Scale vertices by radius
-    for (FVector& V : Vertices)
-    {
-        V *= Radius;
-    }
-
-    // Generate normals and UVs
+    // 3. Generate Smooth Normals and UVs
     TArray<FVector> Normals;
-    TArray<FVector2D> UVs;
-    for (const FVector& V : Vertices)
+    Normals.SetNumZeroed(Vertices.Num());
+
+    for (int32 i = 0; i < Triangles.Num(); i += 3)
     {
-        Normals.Add(V.GetSafeNormal());
-        FVector N = V.GetSafeNormal();
+        int32 ID0 = Triangles[i];
+        int32 ID1 = Triangles[i + 1];
+        int32 ID2 = Triangles[i + 2];
+
+        FVector V0 = Vertices[ID0];
+        FVector V1 = Vertices[ID1];
+        FVector V2 = Vertices[ID2];
+
+        FVector FaceNormal = FVector::CrossProduct(V2 - V0, V1 - V0).GetSafeNormal();
+
+        Normals[ID0] += FaceNormal;
+        Normals[ID1] += FaceNormal;
+        Normals[ID2] += FaceNormal;
+    }
+
+    TArray<FVector2D> UVs;
+    for (int32 i = 0; i < Vertices.Num(); i++)
+    {
+        Normals[i].Normalize();
+        FVector N = Vertices[i].GetSafeNormal();
         UVs.Add(FVector2D(0.5f + FMath::Atan2(N.Y, N.X) / (2 * PI), 0.5f - FMath::Asin(N.Z) / PI));
     }
 
     MeshComponent->CreateMeshSection(0, Vertices, Triangles, Normals, UVs, TArray<FColor>(), TArray<FProcMeshTangent>(), true);
 }
 
-void ASphereGenerator::SubdivideTriangle(const FVector& V1, const FVector& V2, const FVector& V3, int32 Depth)
+int32 ASphereGenerator::GetMiddlePoint(int32 P1, int32 P2, TMap<int64, int32>& Cache)
+{
+    // Create a unique key for the edge regardless of order
+    int64 Key = (int64)FMath::Min(P1, P2) << 32 | FMath::Max(P1, P2);
+    
+    if (Cache.Contains(Key)) return Cache[Key];
+    
+    // Calculate normalized midpoint to stay on the sphere unit
+    FVector V1 = Vertices[P1];
+    FVector V2 = Vertices[P2];
+    
+    // We assume Vertices[P1] is already at the noisy position, 
+    // so we get the "original" sphere position by normalizing the sum
+    FVector MiddleSphere = ((V1.GetSafeNormal() + V2.GetSafeNormal()) * 0.5f).GetSafeNormal();
+    
+    // Apply noise once
+    FVector NoisyPos = GetNoisyPosition(MiddleSphere);
+    int32 Index = Vertices.Add(NoisyPos);
+    
+    Cache.Add(Key, Index);
+    return Index;
+}
+
+void ASphereGenerator::SubdivideTriangle(int32 I1, int32 I2, int32 I3, int32 Depth, TMap<int64, int32>& Cache)
 {
     if (Depth == 0)
     {
-        int32 I1 = Vertices.Add(V1);
-        int32 I2 = Vertices.Add(V2);
-        int32 I3 = Vertices.Add(V3);
-        Triangles.Append({I1, I3, I2});
+        Triangles.Append({I1, I3, I2}); // Wound for Unreal's CCW
         return;
     }
 
-    FVector M1 = ((V1 + V2) / 2).GetSafeNormal();
-    FVector M2 = ((V2 + V3) / 2).GetSafeNormal();
-    FVector M3 = ((V3 + V1) / 2).GetSafeNormal();
+    int32 M1 = GetMiddlePoint(I1, I2, Cache);
+    int32 M2 = GetMiddlePoint(I2, I3, Cache);
+    int32 M3 = GetMiddlePoint(I3, I1, Cache);
 
-    SubdivideTriangle(V1, M1, M3, Depth - 1);
-    SubdivideTriangle(V2, M2, M1, Depth - 1);
-    SubdivideTriangle(V3, M3, M2, Depth - 1);
-    SubdivideTriangle(M1, M2, M3, Depth - 1);
+    SubdivideTriangle(I1, M1, M3, Depth - 1, Cache);
+    SubdivideTriangle(I2, M2, M1, Depth - 1, Cache);
+    SubdivideTriangle(I3, M3, M2, Depth - 1, Cache);
+    SubdivideTriangle(M1, M2, M3, Depth - 1, Cache);
 }
 
-int32 ASphereGenerator::GetMiddlePoint(int32 P1, int32 P2, TMap<int64, int32>& Cache)
+int32 ASphereGenerator::GetOrCreateVertex(FVector Position, TMap<FVector, int32>& VertexCache)
 {
-    int64 Key = (int64)FMath::Min(P1, P2) << 32 | FMath::Max(P1, P2);
-    if (Cache.Contains(Key)) return Cache[Key];
+    // Round position slightly to avoid floating point precision issues in the Map key
+    FVector Key = FVector(FMath::RoundToFloat(Position.X * 100), FMath::RoundToFloat(Position.Y * 100), FMath::RoundToFloat(Position.Z * 100));
     
-    FVector Middle = ((Vertices[P1] + Vertices[P2]) / 2).GetSafeNormal();
-    int32 Index = Vertices.Add(Middle);
-    Cache.Add(Key, Index);
-    return Index;
+    if (VertexCache.Contains(Key))
+    {
+        return VertexCache[Key];
+    }
+
+    // Apply noise only once per unique vertex
+    FVector NoisyPos = GetNoisyPosition(Position.GetSafeNormal());
+    int32 NewIndex = Vertices.Add(NoisyPos);
+    VertexCache.Add(Key, NewIndex);
+    return NewIndex;
 }
 
 void ASphereGenerator::StartGeneration()
@@ -88,13 +135,12 @@ void ASphereGenerator::StartGeneration()
 
     GenerateIcosphere();
     
-    GenerateHeightMap();
-	
-    GenerateMesh();
+    //GenerateHeightMap();
+    
     UE_LOG(LogTemp, Warning, TEXT("Vertices Count : %d"), Vertices.Num());
     UE_LOG(LogTemp, Warning, TEXT("Vertex Count : %d"), VertexCount);
 
-    ApplyMesh();
+    //ApplyMesh();
 }
 
 
@@ -127,41 +173,6 @@ void ASphereGenerator::Setup()
         }
     }
 }
-
-void ASphereGenerator::GenerateMesh()
-{
-    VertexCount = Vertices.Num();
-    
-    // Copy vertices and triangles to MeshData
-    MeshData.Vertices = Vertices;
-    MeshData.Triangles = Triangles;
-
-    // Generate normals (for a sphere, normals point outward from center)
-    MeshData.Normals.SetNum(Vertices.Num());
-    for (int32 i = 0; i < Vertices.Num(); i++)
-    {
-        MeshData.Normals[i] = Vertices[i].GetSafeNormal();
-    }
-
-    // Generate UVs using spherical mapping
-    MeshData.UV0.SetNum(Vertices.Num());
-    for (int32 i = 0; i < Vertices.Num(); i++)
-    {
-        FVector Normal = Vertices[i].GetSafeNormal();
-        float U = 0.5f + FMath::Atan2(Normal.Y, Normal.X) / (2.0f * PI);
-        float V = 0.5f - FMath::Asin(FMath::Clamp(Normal.Z, -1.0f, 1.0f)) / PI;
-        MeshData.UV0[i] = FVector2D(U, V);
-    }
-
-    // Initialize colors
-    MeshData.Colors.SetNum(Vertices.Num());
-    for (int32 i = 0; i < Vertices.Num(); i++)
-    {
-        MeshData.Colors[i] = FColor::White;
-    }
-
-    VertexCount = Vertices.Num();
-}
 ProceduralGenerationType ASphereGenerator::SetGenerationType()
 {
     return ProceduralGenerationType::GT_2D;
@@ -178,5 +189,49 @@ void ASphereGenerator::Generate2DHeightMap(FVector Position)
         // Displace vertex along its normal direction
         Vertices[i] = (Vertices[i] * Radius + Vertices[i] * NoiseValue * HeightAmplitude) / Radius;
     }
+}
+
+FVector ASphereGenerator::GetNoisyPosition(const FVector& UnitDir)
+{
+    // UnitDir must be a normalized vector (length 1.0)
+    FVector P = UnitDir * Radius;
+    float NoiseValue = Noise->GetNoise(P.X * NoiseScale, P.Y * NoiseScale, P.Z * NoiseScale);
+    
+    // Map noise from [-1, 1] to [0, 1] then apply amplitude
+    float Displacement = (NoiseValue + 1.0f) * 0.5f * HeightAmplitude;
+    
+    return UnitDir * (Radius + Displacement);
+}
+
+void ASphereGenerator::CalculateSmoothNormals()
+{
+    TArray<FVector> Normals;
+    Normals.SetNumZeroed(Vertices.Num());
+
+    // Sum up face normals for every triangle
+    for (int32 i = 0; i < Triangles.Num(); i += 3)
+    {
+        int32 ID0 = Triangles[i];
+        int32 ID1 = Triangles[i+1];
+        int32 ID2 = Triangles[i+2];
+
+        FVector V0 = Vertices[ID0];
+        FVector V1 = Vertices[ID1];
+        FVector V2 = Vertices[ID2];
+
+        FVector FaceNormal = FVector::CrossProduct(V1 - V0, V2 - V0).GetSafeNormal();
+
+        Normals[ID0] += FaceNormal;
+        Normals[ID1] += FaceNormal;
+        Normals[ID2] += FaceNormal;
+    }
+
+    // Normalize the results
+    for (FVector& N : Normals)
+    {
+        N.Normalize();
+    }
+    
+    // Pass these Normals to MeshComponent->CreateMeshSection
 }
 

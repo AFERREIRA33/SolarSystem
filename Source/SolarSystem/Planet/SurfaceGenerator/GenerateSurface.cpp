@@ -186,27 +186,7 @@ FVector2D AGenerateSurface::GetUV(FVector Position, FVector Normal) const
 		return FVector2D(Position.X, Position.Z) * UVScale;
 	}
 }
-FColor AGenerateSurface::GetColor(FVector Position, FVector Normal) const
-{
-	FColor colorA = FColor::White;
-	FColor colorB = FColor(11,128,37);
-	FColor colorC = FColor(86, 97, 89);
-	float angle = FMath::Acos(FVector::DotProduct(Normal, FVector::UpVector));
-	// UE_LOG( LogTemp, Warning, TEXT("Angle: %f"), Position.Z);
-	if (angle > FMath::DegreesToRadians(45.0f))
-	{
-		return colorC;
-	}
-	
-	if (Position.Z < SurfaceLevel+ 10000.0f)
-	{
-		return colorB;
-	}
-	else
-	{
-		return colorA;
-	}
-}
+
 
 float AGenerateSurface::GetInterpolationOffset(const float V1, const float V2) const
 {

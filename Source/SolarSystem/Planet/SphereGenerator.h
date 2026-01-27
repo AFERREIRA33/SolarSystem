@@ -45,11 +45,13 @@ protected:
 
 private:
     void GenerateIcosphere();
-    void SubdivideTriangle(const FVector& V1, const FVector& V2, const FVector& V3, int32 Depth);
+    void SubdivideTriangle(int32 I1, int32 I2, int32 I3, int32 Depth, TMap<int64, int32>& Cache);
     int32 GetMiddlePoint(int32 P1, int32 P2, TMap<int64, int32>& Cache);
+    int32 GetOrCreateVertex(FVector Position, TMap<FVector, int32>& VertexCache);
+    void CalculateSmoothNormals();
     void StartGeneration() override;
-    void GenerateMesh() override;
-
+    FVector GetNoisyPosition(const FVector& V);
+    
     // Golden ratio for icosahedron
     const float T = (1.0f + FMath::Sqrt(5.0f)) / 2.0f;
 
