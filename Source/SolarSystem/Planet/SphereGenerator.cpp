@@ -18,19 +18,19 @@ void ASphereGenerator::GenerateIcosphere()
     Triangles.Empty();
     TMap<int64, int32> Cache;
 
-    // 1. Initial 12 vertices (displaced by noise)
+    // Initial 12 vertices (displaced by noise)
     for (int32 i = 0; i < 12; i++)
     {
         Vertices.Add(GetNoisyPosition(IcoVertices[i]));
     }
 
-    // 2. Subdivide the 20 initial faces
+    // Subdivide the 20 initial faces
     for (int32 i = 0; i < 20; i++)
     {
         SubdivideTriangle(Faces[i][0], Faces[i][1], Faces[i][2], Subdivisions, Cache);
     }
 
-    // 3. Generate Smooth Normals and UVs
+    // Generate Smooth Normals and UVs
     TArray<FVector> Normals;
     Normals.SetNumZeroed(Vertices.Num());
 
@@ -73,11 +73,8 @@ int32 ASphereGenerator::GetMiddlePoint(int32 P1, int32 P2, TMap<int64, int32>& C
     FVector V1 = Vertices[P1];
     FVector V2 = Vertices[P2];
     
-    // We assume Vertices[P1] is already at the noisy position, 
-    // so we get the "original" sphere position by normalizing the sum
     FVector MiddleSphere = ((V1.GetSafeNormal() + V2.GetSafeNormal()) * 0.5f).GetSafeNormal();
     
-    // Apply noise once
     FVector NoisyPos = GetNoisyPosition(MiddleSphere);
     int32 Index = Vertices.Add(NoisyPos);
     
@@ -89,7 +86,7 @@ void ASphereGenerator::SubdivideTriangle(int32 I1, int32 I2, int32 I3, int32 Dep
 {
     if (Depth == 0)
     {
-        Triangles.Append({I1, I3, I2}); // Wound for Unreal's CCW
+        Triangles.Append({I1, I3, I2}); 
         return;
     }
 
@@ -133,12 +130,6 @@ void ASphereGenerator::StartGeneration()
 
     GenerateIcosphere();
     
-    //GenerateHeightMap();
-    
-    UE_LOG(LogTemp, Warning, TEXT("Vertices Count : %d"), Vertices.Num());
-    UE_LOG(LogTemp, Warning, TEXT("Vertex Count : %d"), VertexCount);
-
-    //ApplyMesh();
 }
 
 
@@ -148,7 +139,7 @@ void ASphereGenerator::Setup()
     Voxels.SetNumZeroed(Dim * Dim * Dim);
     
     FVector Center = FVector(Size / 2.0f, Size / 2.0f, Size / 2.0f);
-    float SphereRadius = Size / 2.5f; // Adjust as needed
+    float SphereRadius = Size / 2.5f; 
     
     for (int x = 0; x < Dim; x++)
     {
@@ -159,11 +150,7 @@ void ASphereGenerator::Setup()
                 FVector Point = FVector(x, y, z);
                 float Distance = FVector::Dist(Point, Center);
                 
-                // Positive inside sphere, negative outside
                 float Density = SphereRadius - Distance;
-                
-                // Optional: Add noise for terrain variation
-                // Density += Noise->GetNoise(x * NoiseScale, y * NoiseScale, z * NoiseScale) * HeightAmplitude;
                 
                 int Index = x + y * Dim + z * Dim * Dim;
                 Voxels[Index] = Density;
@@ -182,20 +169,17 @@ void ASphereGenerator::Generate2DHeightMap(FVector Position)
     {
         FVector VertexPos = Vertices[i] * Radius;
         float NoiseValue = Noise->GetNoise(VertexPos.X * NoiseScale, VertexPos.Y * NoiseScale, VertexPos.Z * NoiseScale);
-        NoiseValue = (NoiseValue + 1.0f) * 0.5f; // Normalize to 0-1
+        NoiseValue = (NoiseValue + 1.0f) * 0.5f; 
         
-        // Displace vertex along its normal direction
         Vertices[i] = (Vertices[i] * Radius + Vertices[i] * NoiseValue * HeightAmplitude) / Radius;
     }
 }
 
 FVector ASphereGenerator::GetNoisyPosition(const FVector& UnitDir)
 {
-    // UnitDir must be a normalized vector (length 1.0)
     FVector P = UnitDir * Radius;
     float NoiseValue = Noise->GetNoise(P.X * NoiseScale, P.Y * NoiseScale, P.Z * NoiseScale);
     
-    // Map noise from [-1, 1] to [0, 1] then apply amplitude
     float Displacement = (NoiseValue + 1.0f) * 0.5f * HeightAmplitude;
     
     return UnitDir * (Radius + Displacement);
@@ -230,16 +214,13 @@ void ASphereGenerator::CalculateSmoothNormals()
         N.Normalize();
     }
     
-    // Pass these Normals to MeshComponent->CreateMeshSection
 }
 
 FVector2D ASphereGenerator::GetUV(FVector Position, FVector Normal) const
 {
-    // Assume sphere center is at (0,0,0)
-    float Distance = Position.Size(); // Distance from center
+    float Distance = Position.Size(); 
     float V = FMath::Clamp((Distance - Radius) / HeightAmplitude, 0.0f, 1.0f);
-
-    // U can be based on angle or just set to 0 for a simple radial gradient
+    
     float U = 0.0f;
 
     return FVector2D(U, abs(V));
