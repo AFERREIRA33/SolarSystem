@@ -1,4 +1,5 @@
 ﻿#include "PlanetGravity.h"
+#include "DrawDebugHelpers.h"
 
 // Sets default values
 APlanetGravity::APlanetGravity()
@@ -12,7 +13,13 @@ void APlanetGravity::BeginPlay()
 {
 	Super::BeginPlay();
 	GetWorld()->GetTimerManager().SetTimerForNextTick(this, &APlanetGravity::InitializeVelocity);
-
+	
+	// Calculer et dessiner les orbites au prochain tick (après InitializeVelocity)
+	if (bShowOrbits)
+	{
+		FTimerHandle TimerHandle;
+		GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &APlanetGravity::CalculateAndDrawOrbits, 0.1f, false);
+	}
 }
 
 float APlanetGravity::CalcForce(float mass1, float mass2, float distance)
@@ -126,6 +133,122 @@ void APlanetGravity::Tick(float DeltaTime)
 	{
 		if (!Planet || Planet == Sun) continue;
 		Planet->SetActorLocation(Planet->GetActorLocation() + Planet->velocity * DeltaTime);
+	}
+}
+
+FVector APlanetGravity::CalculateOrbitalVelocity(APlanet* Planet, APlanet* Sun)
+{
+	FVector direction = Sun->GetActorLocation() - Planet->GetActorLocation();
+	float dist = direction.Size();
+
+	if (dist < KINDA_SMALL_NUMBER) return FVector::ZeroVector;
+
+	float F = CalcForce(Planet->mass, Sun->mass, dist);
+	FVector fdir = direction.GetSafeNormal();
+	FVector accelInit = (F / Planet->mass) * fdir;
+
+	FVector tangent = FVector::CrossProduct(fdir, FVector::UpVector).GetSafeNormal();
+	float orbitalSpeed = FMath::Sqrt(accelInit.Size() * dist);
+
+	return tangent * orbitalSpeed;
+}
+
+void APlanetGravity::CalculateAndDrawOrbits()
+{
+	if (Planets.Num() < 2) return;
+
+	// Trouver le soleil (la planète la plus massive)
+	APlanet* Sun = nullptr;
+	float maxMass = 0.0f;
+	for (APlanet* Planet : Planets)
+	{
+		if (Planet && Planet->mass > maxMass)
+		{
+			maxMass = Planet->mass;
+			Sun = Planet;
+		}
+	}
+
+	if (!Sun) return;
+
+	// Pour chaque planète, simuler une orbite complète et dessiner
+	for (APlanet* Planet : Planets)
+	{
+		if (!Planet || Planet == Sun) continue;
+
+		// Utiliser la vraie position et vélocité de la planète
+		FVector startPos = Planet->GetActorLocation();
+		FVector simPos = startPos;
+		FVector simVel = Planet->velocity; // Utiliser la vraie vélocité calculée par InitializeVelocity
+
+		TArray<FVector> orbitPoints;
+		orbitPoints.Add(simPos);
+
+		// Calculer la période orbitale approximative pour ajuster le pas de temps
+		float orbitRadius = FVector::Dist(startPos, Sun->GetActorLocation());
+		float orbitalSpeed = simVel.Size();
+		float estimatedPeriod = (2.0f * PI * orbitRadius) / FMath::Max(orbitalSpeed, 1.0f);
+		
+		// Ajuster le pas de temps en fonction de la période orbitale
+		float simDeltaTime = estimatedPeriod / (float)OrbitResolution;
+		int32 maxIterations = OrbitResolution * 2; // Sécurité pour éviter boucle infinie
+
+		bool orbitComplete = false;
+		FVector prevDirection = (simPos - Sun->GetActorLocation()).GetSafeNormal();
+
+		for (int32 i = 0; i < maxIterations && !orbitComplete; i++)
+		{
+			// Calculer l'accélération due au soleil uniquement (orbite képlerienne pure)
+			FVector direction = Sun->GetActorLocation() - simPos;
+			float dist = direction.Size();
+
+			if (dist < KINDA_SMALL_NUMBER) break;
+
+			float F = CalcForce(Planet->mass, Sun->mass, dist);
+			FVector fdir = direction.GetSafeNormal();
+			FVector accel = (F / Planet->mass) * fdir;
+
+			// Mettre à jour vélocité et position (intégration de Verlet simplifiée)
+			simVel = simVel + accel * simDeltaTime;
+			simPos = simPos + simVel * simDeltaTime;
+
+			orbitPoints.Add(simPos);
+
+			// Vérifier si on a fait un tour complet
+			if (i > OrbitResolution / 4)
+			{
+				float distToStart = FVector::Dist(simPos, startPos);
+				if (distToStart < orbitRadius * 0.02f) // 2% de tolérance
+				{
+					orbitComplete = true;
+				}
+			}
+		}
+
+		// Fermer l'orbite en connectant le dernier point au premier
+		orbitPoints.Add(startPos);
+
+		// Stocker l'orbite
+		PreCalculatedOrbits.Add(Planet, orbitPoints);
+
+		// Générer une couleur unique pour chaque planète basée sur son index
+		int32 planetIndex = Planets.Find(Planet);
+		FColor orbitColor = FColor::MakeRedToGreenColorFromScalar((float)planetIndex / (float)Planets.Num());
+
+		// Dessiner l'orbite avec des lignes persistantes et plus épaisses
+		for (int32 i = 0; i < orbitPoints.Num() - 1; i++)
+		{
+			DrawDebugLine(
+				GetWorld(),
+				orbitPoints[i],
+				orbitPoints[i + 1],
+				orbitColor,
+				true, // Persistant
+				-1.0f,
+				0,
+				OrbitLineThickness
+			);
+		}
 	}
 }
 
