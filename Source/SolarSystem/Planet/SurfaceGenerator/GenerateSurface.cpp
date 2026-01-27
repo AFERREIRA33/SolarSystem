@@ -2,6 +2,8 @@
 #include "GenerateSurface.h"
 #include"SolarSystem/Planet/Utils/FastNoiseLite.h"
 
+#pragma optimize("", off)
+
 void AGenerateSurface::Setup()
 {
 	const int Dim = Size + 1;
@@ -23,7 +25,7 @@ void AGenerateSurface::Setup()
 		}
 	}
 }
-void AGenerateSurface::Generate2DHeightMap(FVector Position)
+auto AGenerateSurface::Generate2DHeightMap(FVector Position) -> void
 {
 	UE_LOG(LogTemp, Warning, TEXT("Generating 2D Height Map at Position: %f, %f, %f"), Position.X, Position.Y, Position.Z);
 	Voxels.SetNum((Size + 1) * (Size + 1) * (Size + 1));
@@ -233,36 +235,8 @@ void AGenerateSurface::ModifyVoxelData(FVector Position)
 	}
 }
 
-float AGenerateSurface::GetNoiseValue3D(const FVector& Position) const
-{
-	// Use 3D noise sampling with the vertex position
-	// Normalize position to get direction, then scale for noise frequency
-	FVector NormalizedPos = Position.GetSafeNormal();
-    
-	// Scale position for noise frequency control
-	float NoiseScale = 1.0f; // Adjust this for terrain detail
-	float x = NormalizedPos.X * NoiseScale;
-	float y = NormalizedPos.Y * NoiseScale;
-	float z = NormalizedPos.Z * NoiseScale;
-    
-	// Sample 3D noise using FastNoiseLite
-	return Noise->GetNoise(x, y, z);
-}
+#pragma optimize("", on)
 
-void AGenerateSurface::ApplyNoiseToSphere(TArray<FVector>& Vertices, float Radius, float NoiseStrength)
-{
-	for (FVector& Vertex : Vertices)
-	{
-		FVector Direction = Vertex.GetSafeNormal();
-        
-		// Get noise value at this point on the sphere
-		float NoiseValue = GetNoiseValue3D(Vertex);
-        
-		// Apply noise as displacement along the normal (radial direction)
-		float Displacement = Radius + (NoiseValue * NoiseStrength);
-		Vertex = Direction * Displacement;
-	}
-}
 
 
 

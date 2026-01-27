@@ -34,9 +34,8 @@ public:
 	ProceduralGenerationType GenerationType;
 	UFUNCTION(BlueprintCallable, Category="Chunk")
 	void ModifyVoxel(const FVector Position);
-	FastNoiseLite* Noise;
+	
 	virtual void StartGeneration();
-protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -49,10 +48,10 @@ protected:
 	virtual void ModifyVoxelData(FVector Position) PURE_VIRTUAL(AChunkBase::RemoveVoxelData);
 
 	TObjectPtr<UProceduralMeshComponent> Mesh;
+	FastNoiseLite* Noise;
 	FChunkMeshData MeshData;
 	int VertexCount = 0;
-
-private:
+	
 	void ApplyMesh() const;
 	void ClearMesh();
 	void GenerateHeightMap();

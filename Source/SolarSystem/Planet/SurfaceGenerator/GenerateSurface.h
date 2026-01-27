@@ -16,20 +16,12 @@ public:
 	
 	UPROPERTY(editAnywhere, BlueprintReadWrite)
 	int SurfaceLevel = 0;
-	float GetNoise(float X, float Y, float Z);
 	
-	UFUNCTION(BlueprintCallable)
-	float GetNoiseValue3D(const FVector& Position) const;
-
-	UFUNCTION(BlueprintCallable)
-	void ApplyNoiseToSphere(TArray<FVector>& Vertices, float Radius, float NoiseStrength);
-
-private:
 
 	virtual ProceduralGenerationType SetGenerationType() override;
 	void Setup() override;
 	void Generate2DHeightMap(FVector Position) override;
-	void Generate3DHeightMap(FVector Position) override {}
+	void Generate3DHeightMap(FVector Position) override {};
 	void ModifyVoxelData(FVector Position) override;
 	int GetVoxelIndex(const int X, const int Y, const int Z) const;
 	void GenerateMesh() override;

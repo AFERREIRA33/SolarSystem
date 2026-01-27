@@ -34,6 +34,12 @@ public:
     TArray<int32> Triangles;
     TMap<int64, int32> MiddlePointCache;
 
+
+    virtual ProceduralGenerationType SetGenerationType() override;
+    void Setup() override;
+    virtual void Generate2DHeightMap(FVector Position) override;
+    TArray<float> HeightMap;
+    
 protected:
     virtual void BeginPlay() override;
 
@@ -41,7 +47,8 @@ private:
     void GenerateIcosphere();
     void SubdivideTriangle(const FVector& V1, const FVector& V2, const FVector& V3, int32 Depth);
     int32 GetMiddlePoint(int32 P1, int32 P2, TMap<int64, int32>& Cache);
-    float GetTerrainHeight(const FVector& Direction);
+    void StartGeneration() override;
+    void GenerateMesh() override;
 
     // Golden ratio for icosahedron
     const float T = (1.0f + FMath::Sqrt(5.0f)) / 2.0f;
