@@ -10,7 +10,6 @@ class SOLARSYSTEM_API APlanet : public AActor
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this actor's properties
 	APlanet();
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
@@ -29,15 +28,16 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	float GetPlanetRadius();
+	
+	void InitializePlanet(float NewScale, float NewGravity);
+	
+	void RecalculateMass();
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* mesh;
-
-	
 
 private:
 	float PlanetMass(float radius);

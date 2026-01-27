@@ -1,25 +1,50 @@
 ﻿#include "PlanetGravity.h"
 #include "DrawDebugHelpers.h"
+#include "Components/StaticMeshComponent.h"
 
 // Sets default values
 APlanetGravity::APlanetGravity()
 {
-
 	PrimaryActorTick.bCanEverTick = true;
+
+	// Sun Mesh
+	SunMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("SunMesh"));
+	SetRootComponent(SunMesh);
+	SunMesh->SetMobility(EComponentMobility::Static);
+	SunMesh->SetCollisionProfileName(UCollisionProfile::NoCollision_ProfileName);
 }
 
 
 void APlanetGravity::BeginPlay()
 {
 	Super::BeginPlay();
+	
+	Mass = CalculateMass(GetSunRadius());
+	
+	SpawnPlanets();
+
 	GetWorld()->GetTimerManager().SetTimerForNextTick(this, &APlanetGravity::InitializeVelocity);
 	
-	// Calculer et dessiner les orbites au prochain tick (après InitializeVelocity)
+	// Draw orbits after a short delay to ensure velocities are initialized
 	if (bShowOrbits)
 	{
 		FTimerHandle TimerHandle;
 		GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &APlanetGravity::CalculateAndDrawOrbits, 0.1f, false);
 	}
+}
+
+float APlanetGravity::GetSunRadius()
+{
+	if (SunMesh)
+	{
+		return SunMesh->Bounds.SphereRadius * 100;
+	}
+	return 100.0f;
+}
+
+float APlanetGravity::CalculateMass(float radius)
+{
+	return Gravity * FMath::Square(radius) / G;
 }
 
 float APlanetGravity::CalcForce(float mass1, float mass2, float distance)
@@ -29,75 +54,57 @@ float APlanetGravity::CalcForce(float mass1, float mass2, float distance)
 
 void APlanetGravity::InitializeVelocity()
 {
-	if (Planets.Num() < 2) return;
+	if (Planets.Num() < 1) return;
+	
+	SunLocation = GetActorLocation();
 
-	// Trouver la planète la plus massive (le soleil)
-	APlanet* Sun = nullptr;
-	float maxMass = 0.0f;
+	// Set initial velocity for each planet for circular orbit
 	for (APlanet* Planet : Planets)
 	{
-		if (Planet && Planet->mass > maxMass)
-		{
-			maxMass = Planet->mass;
-			Sun = Planet;
-		}
-	}
+		if (!Planet) continue;
 
-	if (!Sun) return;
-
-	// Initialiser la vitesse orbitale de chaque planète autour du soleil
-	for (APlanet* Planet : Planets)
-	{
-		if (!Planet || Planet == Sun) continue;
-
-		FVector direction = Sun->GetActorLocation() - Planet->GetActorLocation();
+		FVector direction = SunLocation - Planet->GetActorLocation();
 		float dist = direction.Size();
 
 		if (dist < KINDA_SMALL_NUMBER) continue;
 
-		float F = CalcForce(Planet->mass, Sun->mass, dist);
+		float F = CalcForce(Planet->mass, Mass, dist);
 		FVector fdir = direction.GetSafeNormal();
 
 		FVector accelInit = (F / Planet->mass) * fdir;
-
-		// Calcul du vecteur tangent pour l'orbite
+		
 		FVector tangent = FVector::CrossProduct(fdir, FVector::UpVector).GetSafeNormal();
 		float orbitalSpeed = FMath::Sqrt(accelInit.Size() * dist);
 
 		Planet->velocity = tangent * orbitalSpeed;
 	}
-
-	// Le soleil reste immobile (ou on peut lui donner une vélocité nulle)
-	Sun->velocity = FVector::ZeroVector;
 }
 
-
-// Called every frame
 void APlanetGravity::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	
+	SunLocation = GetActorLocation();
 
-	// Trouver le soleil (la planète la plus massive) pour l'exclure du mouvement
-	APlanet* Sun = nullptr;
-	float maxMass = 0.0f;
+	// For each planet, calculate gravitational acceleration from sun and other planets
 	for (APlanet* Planet : Planets)
 	{
-		if (Planet && Planet->mass > maxMass)
-		{
-			maxMass = Planet->mass;
-			Sun = Planet;
-		}
-	}
-
-	// Pour chaque planète, calculer la force gravitationnelle totale de toutes les autres
-	for (APlanet* Planet : Planets)
-	{
-		// Le soleil ne bouge pas - il est le centre du système
-		if (!Planet || Planet == Sun) continue;
+		if (!Planet) continue;
 
 		FVector totalAccel = FVector::ZeroVector;
 
-		// Calculer l'attraction de chaque autre planète
+		// Calculate attraction from the sun to the planet
+		FVector directionToSun = SunLocation - Planet->GetActorLocation();
+		float distToSun = directionToSun.Size();
+
+		if (distToSun > KINDA_SMALL_NUMBER)
+		{
+			float F = CalcForce(Planet->mass, Mass, distToSun);
+			FVector fdir = directionToSun.GetSafeNormal();
+			totalAccel += (F / Planet->mass) * fdir;
+		}
+
+		// Calculate attraction from other planets
 		for (APlanet* OtherPlanet : Planets)
 		{
 			if (!OtherPlanet || OtherPlanet == Planet) continue;
@@ -105,150 +112,172 @@ void APlanetGravity::Tick(float DeltaTime)
 			FVector direction = OtherPlanet->GetActorLocation() - Planet->GetActorLocation();
 			float dist = direction.Size();
 
-			if (dist < KINDA_SMALL_NUMBER) continue; // Éviter division par zéro
+			if (dist < KINDA_SMALL_NUMBER) continue;
 
-			// Pour le soleil, appliquer la gravité normalement
-			// Pour les autres planètes, limiter l'attraction à courte distance
-			float effectiveDist = dist;
-			if (OtherPlanet != Sun)
-			{
-				// Distance minimale = somme des rayons des deux planètes * 2
-				float minDist = (Planet->GetPlanetRadius() + OtherPlanet->GetPlanetRadius()) * 2.0f;
-				effectiveDist = FMath::Max(dist, minDist);
-			}
+			// Limit atraction to avoid extreme forces at close distances
+			float minDist = (Planet->GetPlanetRadius() + OtherPlanet->GetPlanetRadius()) * 2.0f;
+			float effectiveDist = FMath::Max(dist, minDist);
 
 			float F = CalcForce(Planet->mass, OtherPlanet->mass, effectiveDist);
 			FVector fdir = direction.GetSafeNormal();
 
-			// Ajouter l'accélération due à cette planète
 			totalAccel += (F / Planet->mass) * fdir;
 		}
 
-		// Mettre à jour la vélocité avec l'accélération totale
+		// Update velocity with global acceleration
 		Planet->velocity = Planet->velocity + totalAccel * DeltaTime;
 	}
 
-	// Mettre à jour les positions de toutes les planètes (sauf le soleil)
+	// Update planet positions
 	for (APlanet* Planet : Planets)
 	{
-		if (!Planet || Planet == Sun) continue;
+		if (!Planet) continue;
 		Planet->SetActorLocation(Planet->GetActorLocation() + Planet->velocity * DeltaTime);
 	}
 }
 
-FVector APlanetGravity::CalculateOrbitalVelocity(APlanet* Planet, APlanet* Sun)
-{
-	FVector direction = Sun->GetActorLocation() - Planet->GetActorLocation();
-	float dist = direction.Size();
-
-	if (dist < KINDA_SMALL_NUMBER) return FVector::ZeroVector;
-
-	float F = CalcForce(Planet->mass, Sun->mass, dist);
-	FVector fdir = direction.GetSafeNormal();
-	FVector accelInit = (F / Planet->mass) * fdir;
-
-	FVector tangent = FVector::CrossProduct(fdir, FVector::UpVector).GetSafeNormal();
-	float orbitalSpeed = FMath::Sqrt(accelInit.Size() * dist);
-
-	return tangent * orbitalSpeed;
-}
-
 void APlanetGravity::CalculateAndDrawOrbits()
 {
-	if (Planets.Num() < 2) return;
+	if (Planets.Num() < 1) return;
+	
+	SunLocation = GetActorLocation();
 
-	// Trouver le soleil (la planète la plus massive)
-	APlanet* Sun = nullptr;
-	float maxMass = 0.0f;
+	// For each planet, simulate orbit path and draw it
 	for (APlanet* Planet : Planets)
 	{
-		if (Planet && Planet->mass > maxMass)
-		{
-			maxMass = Planet->mass;
-			Sun = Planet;
-		}
-	}
+		if (!Planet) continue;
 
-	if (!Sun) return;
-
-	// Pour chaque planète, simuler une orbite complète et dessiner
-	for (APlanet* Planet : Planets)
-	{
-		if (!Planet || Planet == Sun) continue;
-
-		// Utiliser la vraie position et vélocité de la planète
+		// Use true position and velocity as starting point
 		FVector startPos = Planet->GetActorLocation();
 		FVector simPos = startPos;
-		FVector simVel = Planet->velocity; // Utiliser la vraie vélocité calculée par InitializeVelocity
+		FVector simVel = Planet->velocity;
 
 		TArray<FVector> orbitPoints;
 		orbitPoints.Add(simPos);
 
-		// Calculer la période orbitale approximative pour ajuster le pas de temps
-		float orbitRadius = FVector::Dist(startPos, Sun->GetActorLocation());
+		// Calculate approximate orbital period to set time step
+		float orbitRadius = FVector::Dist(startPos, SunLocation);
 		float orbitalSpeed = simVel.Size();
 		float estimatedPeriod = (2.0f * PI * orbitRadius) / FMath::Max(orbitalSpeed, 1.0f);
 		
-		// Ajuster le pas de temps en fonction de la période orbitale
 		float simDeltaTime = estimatedPeriod / (float)OrbitResolution;
-		int32 maxIterations = OrbitResolution * 2; // Sécurité pour éviter boucle infinie
+		int32 maxIterations = OrbitResolution * 2;
 
 		bool orbitComplete = false;
-		FVector prevDirection = (simPos - Sun->GetActorLocation()).GetSafeNormal();
 
 		for (int32 i = 0; i < maxIterations && !orbitComplete; i++)
 		{
-			// Calculer l'accélération due au soleil uniquement (orbite képlerienne pure)
-			FVector direction = Sun->GetActorLocation() - simPos;
+			FVector direction = SunLocation - simPos;
 			float dist = direction.Size();
 
 			if (dist < KINDA_SMALL_NUMBER) break;
 
-			float F = CalcForce(Planet->mass, Sun->mass, dist);
+			float F = CalcForce(Planet->mass, Mass, dist);
 			FVector fdir = direction.GetSafeNormal();
 			FVector accel = (F / Planet->mass) * fdir;
-
-			// Mettre à jour vélocité et position (intégration de Verlet simplifiée)
+			
 			simVel = simVel + accel * simDeltaTime;
 			simPos = simPos + simVel * simDeltaTime;
 
 			orbitPoints.Add(simPos);
 
-			// Vérifier si on a fait un tour complet
+			// Check if we have completed the orbit by returning close to the start position
 			if (i > OrbitResolution / 4)
 			{
 				float distToStart = FVector::Dist(simPos, startPos);
-				if (distToStart < orbitRadius * 0.02f) // 2% de tolérance
+				if (distToStart < orbitRadius * 0.02f)
 				{
 					orbitComplete = true;
 				}
 			}
 		}
-
-		// Fermer l'orbite en connectant le dernier point au premier
+		
 		orbitPoints.Add(startPos);
-
-		// Stocker l'orbite
+		
 		PreCalculatedOrbits.Add(Planet, orbitPoints);
 
-		// Générer une couleur unique pour chaque planète basée sur son index
-		int32 planetIndex = Planets.Find(Planet);
-		FColor orbitColor = FColor::MakeRedToGreenColorFromScalar((float)planetIndex / (float)Planets.Num());
-
-		// Dessiner l'orbite avec des lignes persistantes et plus épaisses
+		// Draw orbit with persistant lines trace
 		for (int32 i = 0; i < orbitPoints.Num() - 1; i++)
 		{
-			DrawDebugLine(
-				GetWorld(),
-				orbitPoints[i],
-				orbitPoints[i + 1],
-				orbitColor,
-				true, // Persistant
-				-1.0f,
-				0,
-				OrbitLineThickness
-			);
+			DrawDebugLine(GetWorld(),orbitPoints[i],orbitPoints[i + 1],FColor::Red,true,-1.0f,0,OrbitLineThickness);
 		}
 	}
+}
+
+void APlanetGravity::SpawnPlanets()
+{
+	if (!PlanetClass)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("PlanetClass is not set! Cannot spawn planets."));
+		return;
+	}
+	
+	Planets.Empty();
+
+	SunLocation = GetActorLocation();
+	TArray<FVector> SpawnedPositions;
+	TArray<float> SpawnedRadii;
+
+	for (int32 i = 0; i < NumberOfPlanets; i++)
+	{
+		// Random value for planet
+		float RandomScale = FMath::RandRange(MinPlanetScale, MaxPlanetScale);
+		float RandomGravity = FMath::RandRange(MinPlanetGravity, MaxPlanetGravity);
+
+		FVector SpawnLocation;
+		bool bValidPosition = false;
+		int32 MaxAttempts = 100;
+		int32 Attempts = 0;
+
+		// Find valid spawn position
+		while (!bValidPosition && Attempts < MaxAttempts)
+		{
+			Attempts++;
+			
+			float OrbitRadius = FMath::RandRange(MinOrbitRadius, MaxOrbitRadius);
+			
+			float Angle = FMath::RandRange(0.0f, 2.0f * PI);
+			
+			SpawnLocation = SunLocation + FVector(
+				FMath::Cos(Angle) * OrbitRadius,
+				FMath::Sin(Angle) * OrbitRadius,
+				0.0f
+			);
+
+			// Check if position is not too close to existing planets
+			bValidPosition = true;
+			for (int32 j = 0; j < SpawnedPositions.Num(); j++)
+			{
+				float DistToExisting = FVector::Dist(SpawnLocation, SpawnedPositions[j]);
+				float RequiredDist = MinDistanceBetweenPlanets + SpawnedRadii[j] * 100.0f + RandomScale * 100.0f;
+				if (DistToExisting < RequiredDist)
+				{
+					bValidPosition = false;
+					break;
+				}
+			}
+		}
+
+		if (!bValidPosition) continue;
+
+		// Spawn Planet
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.Owner = this;
+		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+		APlanet* NewPlanet = GetWorld()->SpawnActor<APlanet>(PlanetClass, SpawnLocation, FRotator::ZeroRotator, SpawnParams);
+
+		if (NewPlanet)
+		{
+			// Initialise with random scale and gravity
+			NewPlanet->InitializePlanet(RandomScale, RandomGravity);
+
+			// Add to array
+			Planets.Add(NewPlanet);
+			SpawnedPositions.Add(SpawnLocation);
+			SpawnedRadii.Add(RandomScale);
+		}
+	}
+	
 }
 

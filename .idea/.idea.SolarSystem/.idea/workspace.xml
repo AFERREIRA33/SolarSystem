@@ -14,12 +14,14 @@
   <component name="ChangeListManager">
     <list default="true" id="83b3f6b8-1aed-467c-a379-4538d1a448ca" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SolarSystem/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SolarSystem/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/0/YS/5CUAMRLPFP81FJAPMCED3A.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/0/YS/5CUAMRLPFP81FJAPMCED3A.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/7/XT/XF7ITZIL8H1UC3HB89U7HG.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/7/XT/XF7ITZIL8H1UC3HB89U7HG.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/8/5X/D63VQQW0JHWNCI2R2CBJTR.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/8/5X/D63VQQW0JHWNCI2R2CBJTR.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/8/HM/NEBINDE7YLKG4YD7B8ZD8Y.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/8/HM/NEBINDE7YLKG4YD7B8ZD8Y.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/0/YS/5CUAMRLPFP81FJAPMCED3A.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/7/XT/XF7ITZIL8H1UC3HB89U7HG.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/8/5X/D63VQQW0JHWNCI2R2CBJTR.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/8/HM/NEBINDE7YLKG4YD7B8ZD8Y.uasset" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/9/GM/NQT0N49GCGPNV8VZZ72M0O.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/9/GM/NQT0N49GCGPNV8VZZ72M0O.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/D/IZ/KFG5PN0JBXQYJ2FHRKKCYY.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/D/IZ/KFG5PN0JBXQYJ2FHRKKCYY.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/Scene/TestPlanet/D/IZ/KFG5PN0JBXQYJ2FHRKKCYY.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/SolarSystem/Planet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SolarSystem/Planet.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/SolarSystem/Planet.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SolarSystem/Planet.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/SolarSystem/PlanetGravity.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SolarSystem/PlanetGravity.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/SolarSystem/PlanetGravity.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SolarSystem/PlanetGravity.h" afterDir="false" />
     </list>
@@ -35,7 +37,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="cidr-memory-view://2" root0="FORCE_HIGHLIGHTING" />
+    <setting file="cidr-memory-view://6" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo"><![CDATA[{
   "customColor": "",
@@ -174,7 +176,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1769504455474</updated>
-      <workItem from="1769504457057" duration="4364000" />
+      <workItem from="1769504457057" duration="11080000" />
     </task>
     <servers />
   </component>

@@ -1,15 +1,13 @@
 ﻿#include "Planet.h"
 #include "Components/StaticMeshComponent.h"
 
-
-
 APlanet::APlanet()
 {
 
 	PrimaryActorTick.bCanEverTick = true;
 	mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("InstancedMesh"));
 	SetRootComponent(mesh);
-	mesh->SetMobility(EComponentMobility::Static);
+	mesh->SetMobility(EComponentMobility::Movable);
 	mesh->SetCollisionProfileName(UCollisionProfile::NoCollision_ProfileName);
 }
 
@@ -34,5 +32,19 @@ float APlanet::GetPlanetRadius()
 float APlanet::PlanetMass(float radius)
 {
 	return gravity * FMath::Square(radius) / G;
+}
+
+void APlanet::InitializePlanet(float NewScale, float NewGravity)
+{
+	SetActorScale3D(FVector(NewScale));
+	
+	gravity = NewGravity;
+	
+	RecalculateMass();
+}
+
+void APlanet::RecalculateMass()
+{
+	mass = PlanetMass(GetPlanetRadius());
 }
 
