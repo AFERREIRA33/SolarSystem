@@ -17,13 +17,9 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	float G = 0.006;
 
+	// Tableau contenant toutes les planètes du système solaire
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
-	APlanet* P1;
-	UPROPERTY(EditAnywhere,BlueprintReadWrite)
-	APlanet* P2;
-
-	// UPROPERTY(EditAnywhere,BlueprintReadWrite)
-	// TArray<APlanet*> planets;
+	TArray<APlanet*> Planets;
 
 protected:
 	virtual void BeginPlay() override;
@@ -31,6 +27,5 @@ protected:
 private:
 	float CalcForce(float mass1,float mass2,float distance);
 	void InitializeVelocity();
-	FVector accel;
 	
 };
