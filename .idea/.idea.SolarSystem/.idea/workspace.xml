@@ -13,11 +13,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6df6118f-f99b-4eeb-9fe8-5e429b7f9297" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/9/D0/OJ0R8G8SO0H4VERX7OM0WW.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/__ExternalActors__/TestPlanet/TestPlanetMap/9/D0/OJ0R8G8SO0H4VERX7OM0WW.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SolarSystem/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SolarSystem/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/SolarSystem/Planet/SphereGenerator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SolarSystem/Planet/SphereGenerator.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/SolarSystem/Planet/SphereGenerator.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SolarSystem/Planet/SphereGenerator.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/SolarSystem/Planet/SurfaceGenerator/GenerateSurface.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SolarSystem/Planet/SurfaceGenerator/GenerateSurface.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/SolarSystem/Planet/SurfaceGenerator/GenerateSurface.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/SolarSystem/Planet/SurfaceGenerator/GenerateSurface.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,28 +80,28 @@
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files (x86)/UE_5.6/Engine/Source/Runtime/Core/Public/Containers/Array.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../Program Files (x86)/Windows Kits/10/Include/10.0.22621.0/ucrt/stdlib.h" root0="SKIP_HIGHLIGHTING" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="38pfpeX1498O6T63ayyNvRWm4ML" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "C/C++ Project.SolarSystem.executor": "Debug",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "ProceduralPlanet",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;C/C++ Project.SolarSystem.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;ProceduralPlanet&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="C/C++ Project.SolarSystem">
     <configuration name="SolarSystem" type="CppProject" factoryName="C++ Project">
       <configuration_1 setup="1">
@@ -196,7 +194,10 @@
       <method v="2" />
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
-      <deployment type="dockerfile" />
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
+      <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isSslEnabled="false" />
       <method v="2" />
     </configuration>
   </component>
@@ -209,6 +210,7 @@
       <option name="presentableId" value="Default" />
       <updated>1769501616503</updated>
       <workItem from="1769501617733" duration="22283000" />
+      <workItem from="1769526289827" duration="300000" />
     </task>
     <servers />
   </component>

@@ -57,11 +57,11 @@ void ASphereGenerator::GenerateIcosphere()
     for (int32 i = 0; i < Vertices.Num(); i++)
     {
         Normals[i].Normalize();
-        FVector N = Vertices[i].GetSafeNormal();
-        UVs.Add(FVector2D(0.5f + FMath::Atan2(N.Y, N.X) / (2 * PI), 0.5f - FMath::Asin(N.Z) / PI));
+        UVs.Add(GetUV(Vertices[i], Normals[i]));
     }
-
+    MeshComponent->SetMaterial(0, Material);
     MeshComponent->CreateMeshSection(0, Vertices, Triangles, Normals, UVs, TArray<FColor>(), TArray<FProcMeshTangent>(), true);
+
 }
 
 int32 ASphereGenerator::GetMiddlePoint(int32 P1, int32 P2, TMap<int64, int32>& Cache)
@@ -233,5 +233,17 @@ void ASphereGenerator::CalculateSmoothNormals()
     }
     
     // Pass these Normals to MeshComponent->CreateMeshSection
+}
+
+FVector2D ASphereGenerator::GetUV(FVector Position, FVector Normal) const
+{
+    // Assume sphere center is at (0,0,0)
+    float Distance = Position.Size(); // Distance from center
+    float V = FMath::Clamp((Distance - Radius) / HeightAmplitude, 0.0f, 1.0f);
+
+    // U can be based on angle or just set to 0 for a simple radial gradient
+    float U = 0.0f;
+
+    return FVector2D(U, abs(V));
 }
 

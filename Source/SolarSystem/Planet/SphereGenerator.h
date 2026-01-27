@@ -51,7 +51,8 @@ private:
     void CalculateSmoothNormals();
     void StartGeneration() override;
     FVector GetNoisyPosition(const FVector& V);
-    
+    FVector2D GetUV(FVector Position, FVector Normal) const;
+
     // Golden ratio for icosahedron
     const float T = (1.0f + FMath::Sqrt(5.0f)) / 2.0f;
 
